@@ -1,0 +1,21 @@
+Структура пакета даних
+Header - Command ID - Length - Payload - Checksum 
+
+Documented Command Codes
+
+PC → STM32:
+
+1 START_GAME
+2 CELL_OPEN
+3 CELL_FLAG
+4 SAVE_RECORD
+5 GET_RECORDS
+
+STM32 → PC:
+
+
+2 GAME_STARTED
+3 CELL_VALUE
+4 GAME_OVER
+5 RECORD_ENTRY
+6 ERROR_MSG
