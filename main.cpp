@@ -2,6 +2,6 @@
 
 int main()
 {
-    std::cout << "Hello from PC C++ app" << std::endl;
+    std::cout << "Hello" << std::endl;
     return 0;
 }
