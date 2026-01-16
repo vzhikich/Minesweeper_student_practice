@@ -16,3 +16,117 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2026-01-15 13:52:51.369
 !MESSAGE Indexed 'STM32_SAPER' (19 sources, 81 headers) in 2.46 sec: 4,139 declarations; 23,014 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0074%)
+!SESSION 2026-01-15 15:13:16.856 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=uk_UA
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-15 15:13:32.913
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-15 15:13:32.918
+!MESSAGE Log4j2 initialized with config file C:\Users\User\Desktop\Minesweeper_student_practice\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-01-15 15:13:38.491
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2026-01-15 15:24:48.992 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=uk_UA
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-15 15:25:07.584
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-15 15:25:07.586
+!MESSAGE Log4j2 initialized with config file C:\Users\User\Desktop\Minesweeper_student_practice\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-01-15 15:25:13.177
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.core.jobs 2 2 2026-01-15 15:25:17.581
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.ui.internal.Workbench$39 RUNNING
+	 at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	 at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1027)
+	 at org.eclipse.osgi.internal.loader.ModuleClassLoader.defineClass(ModuleClassLoader.java:293)
+	 at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.defineClass(ClasspathManager.java:774)
+	 at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findClassImpl(ClasspathManager.java:691)
+	 at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClassImpl(ClasspathManager.java:657)
+	 at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClassImpl(ClasspathManager.java:637)
+	 at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:616)
+	 at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:348)
+	 at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:414)
+	 at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:520)
+	 at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:434)
+	 at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:174)
+	 at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	 at com.st.microxplorer.plugins.updater.xml.PackDescription.getNode(PackDescription.java:859)
+	 at com.st.microxplorer.plugins.updater.xml.Software.<init>(Software.java:86)
+	 at com.st.microxplorer.plugins.updater.xml.UpdaterFile.getAllSoftware(UpdaterFile.java:1660)
+	 at com.st.microxplorer.plugins.updater.xml.UpdaterFile.getPackagesNode(UpdaterFile.java:1591)
+	 at com.st.microxplorer.plugins.updater.xml.UpdaterFile.readFileInformations(UpdaterFile.java:1546)
+	 at com.st.microxplorer.plugins.updater.xml.UpdaterFile.readFile(UpdaterFile.java:123)
+	 at com.st.microxplorer.plugins.updater.engine.MainUpdater.checkUserFiles(MainUpdater.java:509)
+	 at com.st.microxplorer.plugins.updater.engine.MainUpdater.<init>(MainUpdater.java:281)
+	 at com.st.microxplorer.plugins.updater.Updater.initPhase2(Updater.java:1162)
+	 at com.st.microxplorer.plugins.updater.Updater.setUserPreferencesHandler(Updater.java:1216)
+	 at com.st.stm32cube.common.mx.core.CubeMxInstance.<init>(CubeMxInstance.java:141)
+	 at com.st.stm32cube.common.mx.core.CubeMxInstance.getInstance(CubeMxInstance.java:91)
+	 at com.st.stm32cube.common.mx.userauth.UserAuthAdapter.<init>(UserAuthAdapter.java:25)
+	 at com.st.stm32cube.common.mx.userauth.UserAuthProvider.getUserAuthAdapter(UserAuthProvider.java:16)
+	 at com.st.stm32cube.common.ecosystemintegration.ui.core.MCUEcoSystemIntegrationUiHelper.getUserAuth(MCUEcoSystemIntegrationUiHelper.java:100)
+	 at com.st.stm32cube.ide.mcu.userauth.UserAuthStartup.earlyStartup(UserAuthStartup.java:32)
+	 at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:79)
+	 at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:55)
+	 at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	 at org.eclipse.ui.internal.Workbench$39.run(Workbench.java:2733)
+	 at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2026-01-15 15:25:17.851 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=uk_UA
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data file:/C:/Users/User/Desktop/Minesweeper_student_practice/
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-15 15:25:22.342
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-15 15:25:22.342
+!MESSAGE Log4j2 initialized with config file C:\Users\User\Desktop\Minesweeper_student_practice\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-01-15 15:25:27.674
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-01-15 15:36:11.956
+!MESSAGE Indexed 'STM32-1' (19 sources, 81 headers) in 1.86 sec: 4,139 declarations; 23,014 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0074%)
+!SESSION 2026-01-16 11:49:54.317 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=uk_UA
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-16 11:50:10.648
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-16 11:50:10.650
+!MESSAGE Log4j2 initialized with config file C:\Users\User\Desktop\Minesweeper_student_practice\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-01-16 11:50:17.474
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-01-16 11:51:44.715
+!MESSAGE Indexed 'STM32_NOW' (19 sources, 81 headers) in 2.26 sec: 4,139 declarations; 23,014 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0074%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2026-01-16 12:24:03.082
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.core.resources 2 2 2026-01-16 12:49:45.924
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2026-01-16 12:49:45.924
+!MESSAGE The project description file (.project) for 'STM32-1' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2026-01-16 12:49:45.924
+!MESSAGE The project description file (.project) for 'STM32_SAPER' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
