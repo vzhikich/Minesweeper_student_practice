@@ -43,7 +43,7 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint8_t matrix[10][10];
+uint8_t matrix[11][11];
 char tx_buffer[64];
 /* USER CODE END PV */
 
@@ -52,7 +52,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+uint8_t Calculate_Checksum(uint8_t *data, uint16_t length);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,11 +91,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 11; i++)
   {
-    for (int j = 0; j < 10; j++)
+    for (int j = 0; j < 11; j++)
     {
-      matrix[i][j] = i * 10 + j;
+      matrix[i][j] = i * 11 + j;
     }
   }
   /* USER CODE END 2 */
@@ -104,25 +104,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    for (int i = 0; i < 10; i++)
-    {
-      int len = 0;
-
-      for (int j = 0; j < 10; j++)
+      for (int i = 0; i < 11; i++)
       {
-        len += sprintf(&tx_buffer[len], "%3d ", matrix[i][j]);
+          int len = 0;
+
+          for (int j = 0; j < 11; j++)
+          {
+              len += sprintf(&tx_buffer[len], "%3d ", matrix[i][j]);
+          }
+
+          tx_buffer[len++] = '\r';
+          tx_buffer[len++] = '\n';
+
+          HAL_UART_Transmit(&huart2, (uint8_t*)tx_buffer, len, 100);
       }
 
-      tx_buffer[len++] = '\r';
-      tx_buffer[len++] = '\n';
-
+      // ---- CHECKSUM ----
+      uint8_t checksum = Calculate_Checksum((uint8_t*)matrix, sizeof(matrix));
+      int len = sprintf(tx_buffer, "CHECKSUM: %02X\r\n", checksum);
       HAL_UART_Transmit(&huart2, (uint8_t*)tx_buffer, len, 100);
-    }
 
-    HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, 100);
-    HAL_Delay(1000);
-  }
-}
+      HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, 100);
+      HAL_Delay(1000);
+  }}
 
 /**
   * @brief System Clock Configuration
@@ -214,7 +218,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+uint8_t Calculate_Checksum(uint8_t *data, uint16_t length)
+{
+    uint8_t checksum = 0;
 
+    for (uint16_t i = 0; i < length; i++)
+    {
+        checksum += data[i];
+    }
+
+    return checksum;
+}
 /* USER CODE END 4 */
 
 /**
