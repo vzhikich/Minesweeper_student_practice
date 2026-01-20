@@ -1,0 +1,98 @@
+#include "main.h"
+#include <stdlib.h>
+#include <string.h>
+
+UART_HandleTypeDef huart2;
+uint8_t rx_byte;
+char rx_buffer[16];
+uint8_t rx_index = 0;
+
+#define MAX_SIZE 15
+#define MINE     -1
+
+int8_t field[MAX_SIZE][MAX_SIZE];
+uint8_t size, mines;
+
+// Обчислення XOR checksum
+uint8_t xorChecksum(char *data){
+    uint8_t sum=0;
+    for(uint8_t i=0;i<strlen(data);i++) sum ^= data[i];
+    return sum;
+}
+
+// Очистка поля
+void clearField(void) {
+    for(uint8_t i=0;i<size;i++)
+        for(uint8_t j=0;j<size;j++)
+            field[i][j]=0;
+}
+
+// Розставлення мін випадковим чином
+void placeMines(void){
+    uint8_t placed=0;
+    while(placed<mines){
+        uint8_t x=rand()%size;
+        uint8_t y=rand()%size;
+        if(field[x][y]!=MINE){
+            field[x][y]=MINE;
+            placed++;
+        }
+    }
+}
+
+// Генерація поля за рівнем
+void generateField(char *level){
+    if(strcmp(level,"EASY")==0){ size=5; mines=10; }
+    else if(strcmp(level,"MEDIUM")==0){ size=10; mines=30; }
+    else if(strcmp(level,"HARD")==0){ size=15; mines=50; }
+    else return;
+
+    clearField();
+    placeMines();
+}
+
+// Вивід поля
+void printField(void){
+    for(uint8_t i=0;i<size;i++){
+        for(uint8_t j=0;j<size;j++){
+            if(field[i][j]==MINE) HAL_UART_Transmit(&huart2,(uint8_t*)" *",2,100);
+            else HAL_UART_Transmit(&huart2,(uint8_t*)" .",2,100);
+        }
+        HAL_UART_Transmit(&huart2,(uint8_t*)"\r\n",2,100);
+    }
+}
+
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_USART2_UART_Init();
+    srand(HAL_GetTick());
+
+    while(1){
+        if(HAL_UART_Receive(&huart2,&rx_byte,1,HAL_MAX_DELAY)==HAL_OK){
+            if(rx_byte=='\r' || rx_byte=='\n'){
+                rx_buffer[rx_index]='\0';
+                if(rx_index>0){
+                    // Вивід команди + XOR checksum
+                    uint8_t chk = xorChecksum(rx_buffer);
+                    char txbuf[32];
+                    snprintf(txbuf,sizeof(txbuf),"%s*%02X\r\n",rx_buffer,chk);
+                    HAL_UART_Transmit(&huart2,(uint8_t*)txbuf,strlen(txbuf),100);
+
+                    // Якщо команда MINE
+                    if(strncmp(rx_buffer,"MINE ",5)==0){
+                        generateField(&rx_buffer[5]);
+                        printField();
+                    }
+                }
+                rx_index=0;
+            }else{
+                if(rx_index<sizeof(rx_buffer)-1) rx_buffer[rx_index++]=rx_byte;
+            }
+        }
+    }
+}
+
+/* Далі стандартні функції SystemClock_Config, MX_GPIO_Init, MX_USART2_UART_Init, Error_Handler */

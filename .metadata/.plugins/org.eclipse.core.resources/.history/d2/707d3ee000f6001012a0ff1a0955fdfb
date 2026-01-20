@@ -91,6 +91,7 @@ void GenerateMinefield(Difficulty level)
 // Вивід поля через UART
 void PrintMinefield(void)
 {
+    char buf[4];
     for (uint8_t i = 0; i < fieldSize; i++)
     {
         for (uint8_t j = 0; j < fieldSize; j++)
