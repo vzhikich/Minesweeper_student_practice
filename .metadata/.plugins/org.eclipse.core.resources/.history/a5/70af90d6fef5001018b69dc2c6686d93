@@ -1,0 +1,92 @@
+/* USER CODE BEGIN 4 */
+
+#include <stdlib.h>
+
+#define MAX_SIZE 15
+#define MINE     -1
+
+typedef enum { EASY, MEDIUM, HARD } Difficulty;
+
+int8_t minefield[MAX_SIZE][MAX_SIZE];
+uint8_t fieldSize;
+uint8_t mineCount;
+
+// Ініціалізація генератора випадкових чисел
+void RNG_Init(void)
+{
+    srand(HAL_GetTick());
+}
+
+// Очистка поля
+void ClearField(void)
+{
+    for (uint8_t i = 0; i < fieldSize; i++)
+        for (uint8_t j = 0; j < fieldSize; j++)
+            minefield[i][j] = 0;
+}
+
+// Встановлення мін випадковим чином
+void PlaceMines(void)
+{
+    uint8_t placed = 0;
+    while (placed < mineCount)
+    {
+        uint8_t x = rand() % fieldSize;
+        uint8_t y = rand() % fieldSize;
+
+        if (minefield[x][y] != MINE)
+        {
+            minefield[x][y] = MINE;
+            placed++;
+        }
+    }
+}
+
+// Генерація поля залежно від рівня складності
+void GenerateMinefield(Difficulty level)
+{
+    switch (level)
+    {
+        case EASY:   fieldSize = 5;  mineCount = 10; break;
+        case MEDIUM: fieldSize = 10; mineCount = 30; break;
+        case HARD:   fieldSize = 15; mineCount = 50; break;
+    }
+
+    ClearField();
+    PlaceMines();
+}
+
+// Вивід поля через UART
+void PrintMinefield(void)
+{
+    char buf[4];
+    for (uint8_t i = 0; i < fieldSize; i++)
+    {
+        for (uint8_t j = 0; j < fieldSize; j++)
+        {
+            if (minefield[i][j] == MINE)
+                HAL_UART_Transmit(&huart2, (uint8_t*)" *", 2, 100);
+            else
+                HAL_UART_Transmit(&huart2, (uint8_t*)" .", 2, 100); // порожня клітинка
+        }
+        HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, 100);
+    }
+}
+
+// Обробка команди MINE
+void ProcessMineCommand(char* cmd)
+{
+    if (strcmp(cmd, "EASY") == 0) GenerateMinefield(EASY);
+    else if (strcmp(cmd, "MEDIUM") == 0) GenerateMinefield(MEDIUM);
+    else if (strcmp(cmd, "HARD") == 0) GenerateMinefield(HARD);
+    else
+    {
+        HAL_UART_Transmit(&huart2, (uint8_t*)"Unknown level\r\n", 15, 100);
+        return;
+    }
+
+    HAL_UART_Transmit(&huart2, (uint8_t*)"Minefield:\r\n", 12, 100);
+    PrintMinefield();
+}
+
+/* USER CODE END 4 */

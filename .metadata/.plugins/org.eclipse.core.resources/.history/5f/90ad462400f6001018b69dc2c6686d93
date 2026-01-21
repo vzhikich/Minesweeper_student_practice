@@ -91,6 +91,7 @@ void GenerateMinefield(Difficulty level)
 // Вивід поля через UART
 void PrintMinefield(void)
 {
+    char buf[4];
     for (uint8_t i = 0; i < fieldSize; i++)
     {
         for (uint8_t j = 0; j < fieldSize; j++)
@@ -122,7 +123,10 @@ void ProcessMineCommand(char* cmd)
 
 /* USER CODE END 0 */
 
-
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
     HAL_Init();
@@ -142,13 +146,18 @@ int main(void)
                 HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, 100);
                 rx_buffer[rx_index] = '\0';
 
-                // XOR checksum
+                // XOR checksum (можна залишити для прикладу)
                 uint8_t checksum = Calculate_XOR_Checksum((uint8_t*)rx_buffer, strlen(rx_buffer));
                 char tx_buf[32];
                 snprintf(tx_buf, sizeof(tx_buf), "%s*%02X\r\n", rx_buffer, checksum);
                 HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, strlen(tx_buf), 100);
 
-                if (strncmp(rx_buffer, "MINE ", 5) == 0)
+                // HELLO
+                if (strcmp(rx_buffer, "HELLO") == 0)
+                    HAL_UART_Transmit(&huart2, (uint8_t*)"Hi from STM32!\r\n", 17, 100);
+
+                // MINE команда
+                else if (strncmp(rx_buffer, "MINE ", 5) == 0)
                     ProcessMineCommand(&rx_buffer[5]);
 
                 rx_index = 0;
