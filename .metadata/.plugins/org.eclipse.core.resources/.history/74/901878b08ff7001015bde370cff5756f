@@ -18,6 +18,7 @@ UART_HandleTypeDef huart2;
 #define TX_BUFFER_SIZE 256
 
 #define CMD_MINEFIELD 'M'
+#define CMD_PING      'P'
 
 #define DIFF_EASY     'E'
 #define DIFF_MEDIUM   'M'
@@ -135,19 +136,20 @@ void SendError(uint8_t cmd, uint8_t err)
 void SendMinefieldResponse(void)
 {
     uint16_t idx=0;
-    txBuf[idx++] = CMD_MINEFIELD;
-    txBuf[idx++] = STATUS_OK;
-    txBuf[idx++] = fieldSize*fieldSize;
+    txBuf[idx++]=CMD_MINEFIELD;
+    txBuf[idx++]=STATUS_OK;
+    txBuf[idx++]=fieldSize*fieldSize;
 
-    for(uint8_t i=0; i<fieldSize; i++)
-        for(uint8_t j=0; j<fieldSize; j++)
-            txBuf[idx++] = (minefield[i][j] == MINE) ? 9 : minefield[i][j]; // 9 = міна
+    for(uint8_t i=0;i<fieldSize;i++)
+        for(uint8_t j=0;j<fieldSize;j++)
+            txBuf[idx++]=(minefield[i][j]==MINE)?1:0;
 
-    txBuf[idx] = XOR_Checksum(txBuf, idx);
+    txBuf[idx]=XOR_Checksum(txBuf,idx);
     idx++;
 
-    HAL_UART_Transmit(&huart2, txBuf, idx, 100);
+    HAL_UART_Transmit(&huart2,txBuf,idx,100);
 }
+
 /* ===== Handle minefield request */
 void HandleMinefield(uint8_t *packet)
 {
@@ -167,9 +169,9 @@ void HandleMinefield(uint8_t *packet)
 /* ===== Process received packet */
 void ProcessPacket(uint8_t *packet,uint8_t len)
 {
-    if(packet[len-1] != XOR_Checksum(packet,len-1))
+    if(packet[len-1]!=XOR_Checksum(packet,len-1))
     {
-        SendError(packet[0], 0x01); // checksum error
+        SendError(packet[0],0x01); // checksum error
         return;
     }
 
@@ -178,12 +180,18 @@ void ProcessPacket(uint8_t *packet,uint8_t len)
         case CMD_MINEFIELD:
             HandleMinefield(packet);
             break;
+        case CMD_PING:
+            txBuf[0]=CMD_PING;
+            txBuf[1]=STATUS_OK;
+            txBuf[2]=0;
+            txBuf[3]=XOR_Checksum(txBuf,3);
+            HAL_UART_Transmit(&huart2,txBuf,4,100);
+            break;
         default:
-            SendError(packet[0], STATUS_ERR); // будь-які інші команди тепер помилка
+            SendError(packet[0],STATUS_ERR);
             break;
     }
 }
-
 
 /* ===== UART receive task */
 void UART_Task(void)
