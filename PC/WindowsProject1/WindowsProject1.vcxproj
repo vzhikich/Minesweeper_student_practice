@@ -139,6 +139,7 @@
     <ResourceCompile Include="WindowsProject1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="5442739989977436255.ico" />
     <Image Include="small.ico" />
     <Image Include="WindowsProject1.ico" />
   </ItemGroup>
