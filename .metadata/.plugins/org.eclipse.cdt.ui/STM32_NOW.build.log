@@ -1,10 +1,10 @@
-15:23:36 **** Incremental Build of configuration Debug for project STM32_NOW ****
+14:50:38 **** Incremental Build of configuration Debug for project STM32_NOW ****
 make -j8 all 
 arm-none-eabi-size  STM32_NOW.elf 
    text	   data	    bss	    dec	    hex	filename
-  17156	    104	   2296	  19556	   4c64	STM32_NOW.elf
+  16556	    104	   2592	  19252	   4b34	STM32_NOW.elf
 Finished building: default.size.stdout
  
 
-15:23:36 Build Finished. 0 errors, 0 warnings. (took 373ms)
+14:50:38 Build Finished. 0 errors, 0 warnings. (took 311ms)
 
