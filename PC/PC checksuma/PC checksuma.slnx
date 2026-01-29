@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="PC checksuma/PC checksuma.vcxproj" Id="db1a896c-d549-46af-a3ea-84bd4bbd07a4" />
-</Solution>

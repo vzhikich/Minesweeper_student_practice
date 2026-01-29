@@ -1,5 +1,0 @@
-﻿  PC checksuma.cpp
-C:\Users\User\OneDrive\Робочий стіл\PC checksuma\PC checksuma\PC checksuma.cpp(69,50): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
-C:\Users\User\OneDrive\Робочий стіл\PC checksuma\PC checksuma\PC checksuma.cpp(141,22): warning C4566: character represented by universal-character-name '\u2705' cannot be represented in the current code page (1251)
-C:\Users\User\OneDrive\Робочий стіл\PC checksuma\PC checksuma\PC checksuma.cpp(143,22): warning C4566: character represented by universal-character-name '\u274C' cannot be represented in the current code page (1251)
-  PC checksuma.vcxproj -> C:\Users\User\OneDrive\Робочий стіл\PC checksuma\x64\Debug\PC checksuma.exe
